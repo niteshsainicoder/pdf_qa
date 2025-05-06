@@ -18,7 +18,7 @@ function App() {
 const [fileId, setFileId] = useState<string | null>(null);
  
 const handleSendMessage = async (content: string) => {
-  // Add user message
+
   const userMessage: MessageProps = {
     content,
     isUser: true,
@@ -44,14 +44,14 @@ const handleSendMessage = async (content: string) => {
   setMessages((prev) => [...prev, userMessage]);
 
   const data = await response.json();
-  console.log(data);
+
 
   const aiMessage: MessageProps = {
-    content: data.answer, // ✅ fixed typo
+    content: data.answer,
     isUser: false,
   };
 
-  console.log(aiMessage);
+
 
   setMessages((prev) => [...prev, aiMessage]);
 };
@@ -62,7 +62,7 @@ const handleSendMessage = async (content: string) => {
       setIsUploading(true);
       const file = await uploadPDF();
       
-      setFileName(file?.name)// Add a system message about the upload
+      setFileName(file?.name)
       
       const formData = new FormData();
       formData.append('file', file);
@@ -73,7 +73,7 @@ const handleSendMessage = async (content: string) => {
       });
       const data = await response.json()
      setFileId(data.filename);
-console.log(data);
+
 
       const systemMessage: MessageProps = {
         content: `File "${file.name}" uploaded successfully. You can now ask questions about this document.`,
